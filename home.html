@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Currency Converter</title>
+  </head>
+  <body>
+    <h1>Currency Converter</h1>
+    <form method="POST">
+      <label>From Currency:</label>
+      <input type="text" name="from_currency" required>
+      <br>
+      <label>To Currency:</label>
+      <input type="text" name="to_currency" required>
+      <br>
+      <label>Amount:</label>
+      <input type="number" name="amount" step="0.01" required>
+      <br><br>
+      <input type="submit" value="Convert">
+    </form>
+    {% if result is not none %}
+      <h2>Result: {{ result }}</h2>
+    {% endif %}
+  </body>
+</html>
