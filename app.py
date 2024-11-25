@@ -12,19 +12,21 @@ def home():
         try:
             from_currency = request.form['from_currency'].upper()
             to_currency = request.form['to_currency'].upper()
-            amount = float(request.form['amount'])
+            amount = float(request.form['amount'] or 0)
 
-            response = requests.get(BASE_URL, params={'base': from_currency, 'symbols': to_currency})
-            print(f"API Response: {response.text}")  # Add this line
+            response = requests.get(f"{BASE_URL}{from_currency}")
+            print(f"API Response: {response.text}")  # Debug line
             data = response.json()
-
-            if 'rates' in data and to_currency in data['rates']:
-                rate = data['rates'][to_currency]
-                result = amount * rate
+            
+            if 'conversion_rates' in data and to_currency in data['conversion_rates']:
+                rate = data['conversion_rates'][to_currency]
+                result = round(amount * rate, 2)
             else:
-                result = 'Error: Unable to retrieve the exchange rate.'
+                result = 'Error: Currency not found'
+                
+        except ValueError:
+            result = "Error: Please enter a valid amount"
         except Exception as e:
-            print(f"Error: {str(e)}")  # Add this line
             result = f"Error: {str(e)}"
 
     return render_template('home.html', result=result)
