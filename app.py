@@ -16,7 +16,9 @@ def home():
             amount = float(request.form['amount'])
             
             url = f"{BASE_URL}{from_currency}/{to_currency}"
+            print(f"URL: {url}")  # Debug URL
             response = requests.get(url)
+            print(f"Response: {response.text}")  # Debug response
             data = response.json()
             
             if 'conversion_rate' in data:
@@ -25,6 +27,7 @@ def home():
                 result = 'Error: Unable to retrieve the exchange rate.'
                 
         except Exception as e:
+            print(f"Error: {str(e)}")  # Debug error
             result = f"Error: {str(e)}"
 
     return render_template('home.html', result=result)
