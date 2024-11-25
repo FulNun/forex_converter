@@ -4,8 +4,7 @@ import requests
 app = Flask(__name__)
 
 # Base URL for the currency exchange API
-BASE_URL = "https://api.exchangerate.host/latest"
-
+BASE_URL = "https://v6.exchangerate-api.com/v6/036e8036d2d44cf5f5164167/latest/"
 @app.route('/', methods=['GET', 'POST'])
 def home():
     result = None
